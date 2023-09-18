@@ -13,10 +13,8 @@ request(url, (error, response, body) => {
 
     let wedgeAntilles = 0;
 
-    // Loop througt the list of films
     for (const movies of movieList) {
       const characters = movies.characters;
-      // Look if Wedge Antilles is present in the film
       if (characters.includes(`https://swapi-api.hbtn.io/api/people/${characterId}/`)) {
         wedgeAntilles++;
       }
