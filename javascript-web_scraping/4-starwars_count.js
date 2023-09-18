@@ -3,6 +3,7 @@ const request = require('request');
 
 const url = process.argv[2];
 const characterId = 18;
+let wedgeAntilles = 0;
 
 request(url, (error, response, body) => {
   if (error) {
@@ -10,8 +11,6 @@ request(url, (error, response, body) => {
   } else {
     const jsonBody = JSON.parse(body);
     const movieList = jsonBody.results;
-
-    let wedgeAntilles = 0;
 
     for (const movies of movieList) {
       const characters = movies.characters;
