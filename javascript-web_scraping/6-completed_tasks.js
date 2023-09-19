@@ -22,6 +22,12 @@ request(url, (error, response, body) => {
         todoDict[userIds]++;
       }
     }
+    for (const userId in todoDict) {
+      if (todoDict[userId] === 0) {
+        delete todoDict[userId];
+      }
+    }
+
     console.log(todoDict);
   }
 });
