@@ -26,7 +26,7 @@ function countStudents(path) {
           csStudentsCount: csStudents.length,
           csStudentsList: csStudentsNames,
           sweStudentsCount: sweStudents.length,
-          sweStudentsList: sweStudentsNames
+          sweStudentsList: sweStudentsNames,
         };
 
         console.log(`Number of students: ${studentData.length}`);
