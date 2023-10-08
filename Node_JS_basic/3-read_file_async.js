@@ -36,10 +36,7 @@ function countStudents(path) {
         resolve(result);
       }
     });
-  })
-    .catch((error) => {
-      throw error.message;
-    });
+  });
 }
 
 module.exports = countStudents;
