@@ -4,9 +4,11 @@ const countStudents = require('./3-read_file_async');
 const hostname = '127.0.0.1';
 const port = 1245;
 
+const databaseFilename = process.argv[2];
+
 const app = http.createServer((req, res) => {
   if (req.url === '/students') {
-    countStudents('database.csv')
+    countStudents(databaseFilename)
       .then((data) => {
         const response = `This is the list of our students\nNumber of students: ${data.totalStudents}\nNumber of students in CS: ${data.csStudentsCount}. List: ${data.csStudentsList.join(', ')}\nNumber of students in SWE: ${data.sweStudentsCount}. List: ${data.sweStudentsList.join(', ')}`;
         res.statusCode = 200;
