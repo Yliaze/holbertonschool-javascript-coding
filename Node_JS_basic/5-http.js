@@ -4,6 +4,11 @@ const countStudents = require('./3-read_file_async');
 const hostname = '127.0.0.1';
 const port = 1245;
 
+if (process.argv.length < 3) {
+  console.error('Error: Please provide the database filename as a command line argument.');
+  process.exit(1);
+}
+
 const databaseFilename = process.argv[2];
 
 const app = http.createServer((req, res) => {
