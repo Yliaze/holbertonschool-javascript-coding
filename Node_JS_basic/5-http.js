@@ -19,7 +19,7 @@ const app = http.createServer((req, res) => {
         console.error(error);
         res.statusCode = 500;
         res.setHeader('Content-Type', 'text/plain');
-        res.end('Cannot load the database');
+        res.end('This is the list of our students\nCannot load the database');
       });
   } else if (req.url === '/') {
     res.statusCode = 200;
