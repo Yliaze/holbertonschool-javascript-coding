@@ -4,11 +4,6 @@ const countStudents = require('./3-read_file_async');
 const hostname = '127.0.0.1';
 const port = 1245;
 
-if (process.argv.length < 3) {
-  console.error('Error: Please provide the database filename as a command line argument.');
-  process.exit(1);
-}
-
 const databaseFilename = process.argv[2];
 
 const app = http.createServer((req, res) => {
@@ -21,9 +16,10 @@ const app = http.createServer((req, res) => {
         res.end(response);
       })
       .catch((error) => {
+        console.error(error);
         res.statusCode = 500;
         res.setHeader('Content-Type', 'text/plain');
-        res.end(`Internal Server Error: ${error.message}`);
+        res.end('Internal Server Error');
       });
   } else if (req.url === '/') {
     res.statusCode = 200;
