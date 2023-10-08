@@ -21,11 +21,19 @@ function countStudents(path) {
         const csStudentsNames = csStudents.map((student) => student[0]);
         const sweStudentsNames = sweStudents.map((student) => student[0]);
 
+        const result = {
+          totalStudents: studentData.length,
+          csStudentsCount: csStudents.length,
+          csStudentsList: csStudentsNames,
+          sweStudentsCount: sweStudents.length,
+          sweStudentsList: sweStudentsNames
+        };
+
         console.log(`Number of students: ${studentData.length}`);
         console.log(`Number of students in CS: ${csStudents.length}. List: ${csStudentsNames.join(', ')}`);
         console.log(`Number of students in SWE: ${sweStudents.length}. List: ${sweStudentsNames.join(', ')}`);
 
-        resolve('Done!');
+        resolve(result);
       }
     });
   });
