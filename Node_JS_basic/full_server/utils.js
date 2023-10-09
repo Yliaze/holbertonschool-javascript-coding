@@ -1,38 +1,29 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 
-function readDatabase(path) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(path, 'utf-8', (err, data) => {
-      if (err) {
-        reject(new Error('Cannot load the database'));
-      } else {
-        // Divides the data string into an array of rows
-        const lines = data.split('\n').filter((line) => line.trim() !== '');
-        // Find the header
-        const header = lines[0].split(',');
-        // Browse each row in the lines array (map) and divide it into an array (split)
-        const studentData = lines.slice(1).map((line) => {
-          // Divide rows into an array (split)
-          const values = line.split(',');
+async function readDatabase(path) {
+  try {
+    const data = await fs.readFile(path, 'utf8');
+    // Divides the data string into an array of rows
+    const lines = data.split('\n').filter((line) => line.trim() !== '');
 
-          const student = {};
-          // Create students objects with keys/values
-          header.forEach((field, index) => {
-            student[field] = values[index].trim();
-          });
-          return student;
-        });
+    const namesByField = {};
 
-        // Extract first names per field
-        const fieldFirstNames = {};
-        header.forEach((field) => {
-          fieldFirstNames[field] = studentData.map((student) => student[field]);
-        });
+    lines.forEach((line) => {
+      // Destructuring the array
+      const [firstName, , , field] = line.split(',').map((value) => value.trim());
 
-        resolve(fieldFirstNames);
+      if (field && (field === 'CS' || field === 'SWE')) {
+        if (!namesByField[field]) {
+          namesByField[field] = [];
+        }
+        namesByField[field].push(firstName);
       }
     });
-  });
+
+    return namesByField;
+  } catch (error) {
+    throw new Error('Cannot load the database');
+  }
 }
 
 module.exports = readDatabase;

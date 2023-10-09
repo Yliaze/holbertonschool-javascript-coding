@@ -9,23 +9,17 @@ class StudentsController {
       .then((data) => {
         const fields = Object.keys(data)
           .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
-
-        response.statusCode = 200;
-        response.setHeader('Content-Type', 'text/plain');
-        response.write('This is the list of our students\n');
-
+        const results = ['This is the list of our students'];
         fields.forEach((field) => {
           const studentsCount = data[field].length;
           const studentList = data[field].join(', ');
-          response.write(`Number of students in ${field}: ${studentsCount}. List: ${studentList}\n`);
+          results.push(`Number of students in ${field}: ${studentsCount}. List: ${studentList}`);
         });
-
-        response.end();
+        response.send(results.join('\n'));
       })
       .catch((error) => {
-        response.statusCode = 500;
-        response.setHeader('Content-Type', 'text/plain');
-        response.end(`Cannot load the database: ${error.message}`);
+        response.status(500);
+        response.send(`Cannot load the database: ${error.message}`);
       });
   }
 
